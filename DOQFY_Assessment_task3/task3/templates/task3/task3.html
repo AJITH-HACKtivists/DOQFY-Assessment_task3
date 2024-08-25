@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' href="{% static 'task3/styles.css' %}"> 
+    <title>NSE</title>
+</head>
+<body>
+    <div class="container">
+    {% if nifty_data %}
+    {% for data in nifty_data%}
+    <div class="card">
+        <div class="header">{{data.symbol}}</div>
+        <div class="card-body">
+            <div class="row">
+               <div><span class="header-span">Open:</span><span>{{data.open}}</span></div>
+               <div><span class="header-span">High:</span><span>{{data.dayHigh}}</span></div>
+            </div>
+            <div class="row">
+                <div><span class="header-span">Low:</span><span>{{data.dayLow}}</span></div>
+                <div><span class="header-span">PREV. CLOSE:</span><span>{{data.previousClose}}</span></div>
+             </div>
+             <div class="row">
+                <div><span class="header-span">LTP:</span><span>{{data.lastPrice}}</span></div>
+                <div><span class="header-span">CHNG:</span><span>{{data.change}}</span></div>
+             </div>
+             <div class="row">
+                <div><span class="header-span">%CHNG:</span><span class="{% if data.pChange < 0 %}negative{% endif %} percentage">{{data.pChange}}</span></div>
+                <div><span class="header-span">Volume:</span><span>{{data.totalTradedVolume}}</span></div>
+             </div>
+             <div class="row">
+                <div><span class="header-span">Value (in Lakhs):</span><span>{{data.totalTradedValue}}</span></div>
+                <div><span class="header-span">52W H:</span><span>{{data.yearHigh}}</span></div>
+             </div>
+             <div class="row">
+                <div><span class="header-span">52W L:</span><span>{{data.yearLow}}</span></div>
+                <div><span class="header-span">30 D CHNG(%)</span><span>{{data.perChange30d}}</span></div>
+             </div>
+             
+
+        </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <div>
+        <h1>No Data to Load </h1>
+        {% if error %}
+        <p class="errors-list">{{error}}</p>
+        {% endif %}
+    </div>
+     {% endif %} 
+    
+</div> 
+</body>
+</html>
